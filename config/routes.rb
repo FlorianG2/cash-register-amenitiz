@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  root 'carts#show'
+  resources :cart_products, only: %i[new create edit update index]
+  delete 'cart_products', to: 'cart_products#destroy_all', as: :destroy
 end

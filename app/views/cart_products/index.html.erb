@@ -1,0 +1,22 @@
+<div class="product-container center">
+  <h4>Cart</h4>
+  <% @cart_products.each do |product| %>
+    <% prod = Product.find(product.product_id) %>
+    <div>
+      <p class="product-card"><%= product.quantity %> - <%= prod.name %> for a total of : <%= product.total %>€</p>
+    </div>
+    <% @total << product.total %>
+  <% end %>
+  <div>
+    <p>total = <%= @total.sum  %>€</p>
+  </div>
+  <div>
+   <%= link_to "Delete",
+  destroy_path,
+  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+  %>
+  </div>
+  <div>
+  <%= link_to "Back to Products", root_path %>
+  </div>
+</div>

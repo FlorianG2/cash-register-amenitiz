@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
   def show
     @products = Product.all
+    @cart_products = []
   end
 
   def free_green_tea(cart_product)
