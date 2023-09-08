@@ -12,6 +12,9 @@
       data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
        %>
     </div>
+    <div>
+      <%= link_to "Edit", edit_cart_product_path(product.id) %>
+    </div>
   <% end %>
   <div>
     <p>total = <%= @total.sum  %>€</p>

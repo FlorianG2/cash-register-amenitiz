@@ -10,6 +10,35 @@ class CartProductsController < ApplicationController
     @cart_product = CartProduct.new(product_id: @id, quantity: 0, total: 0)
   end
 
+  def create
+    values = params['cart_product'].values
+    @product = Product.find(values[0])
+    total = total(@product, values[1].to_i)
+    @cart_product = CartProduct.new(product_id: @product.id, quantity: values[1].to_i, total: total)
+    if @cart_product.save
+      redirect_to cart_products_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @cart_product = CartProduct.find(params[:id])
+  end
+
+  def update
+    @product = Product.find(params[:id])
+    @cart_product = CartProduct.find(params[:id])
+    if params[:cart_product][:quantity].to_i <= 0
+      @cart_product.destroy
+    else
+      total = total(@product, params[:cart_product][:quantity].to_i)
+      @cart_product.update(quantity: params[:cart_product][:quantity].to_i, total: total)
+      @cart_product.save
+    end
+    redirect_to cart_products_path
+  end
+
   def destroy_all
     CartProduct.destroy_all
     redirect_to cart_products_path, status: :see_other
@@ -21,29 +50,19 @@ class CartProductsController < ApplicationController
     redirect_to cart_products_path, status: :see_other
   end
 
-  def create
-    values = params['cart_product'].values
-    @product = Product.find(values[0])
-    case @product.product_code
-    when 'GR1'
-      total = free_green_tea(@product.price, values[1].to_i)
-      @cart_product = CartProduct.new(product_id: @product.id, quantity: values[1].to_i, total: total)
-    when 'SR1'
-      total = reduced_price_strawberries(@product.price, values[1].to_i)
-      @cart_product = CartProduct.new(product_id: @product.id, quantity: values[1].to_i, total: total)
-    when 'CF1'
-      total = drop_price_coffee(@product.price, values[1].to_i)
-      @cart_product = CartProduct.new(product_id: @product.id, quantity: values[1].to_i, total: total)
-    end
-    if @cart_product.save
-      redirect_to cart_products_path
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
+  # def cart_product_params
+  #   params.require(:cart_product).permit(:quantity, :total, :product_id)
+  # end
 
-  def cart_product_params
-    params.require(:cart_product).permit(:quantity, :total, :product_id)
+  def total(product, quantity)
+    case product.product_code
+    when 'GR1'
+      free_green_tea(product.price, quantity)
+    when 'SR1'
+      reduced_price_strawberries(product.price, quantity)
+    when 'CF1'
+      drop_price_coffee(product.price, quantity)
+    end
   end
 
   def free_green_tea(price, quantity)
