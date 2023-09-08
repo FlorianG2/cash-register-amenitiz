@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row justify-content-center vh-100 align-items-center">
+      <div class="col-12 col-lg-6">
+        <div class="d-flex justify-content-center">
+          <h4>Products</h4>
+        </div>
+        <div class="product-container">
+          <% @products.each do |product| %>
+          <div class="product-card">
+            <div class="product-image">
+              <%= image_tag product.photo_path %>
+            </div>
+            <div class="product-details">
+              <p><%= product.name %></p>
+              <p><%= product.price %>€</p>
+            </div>
+            <div class="orange-btn my-2">
+              <%= link_to 'Add quantity', new_cart_product_path(product.id) %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>

@@ -3,17 +3,20 @@
     {
       "product_code": "GR1",
       "name": "Green Tea",
-      "price": 3.11
+      "price": 3.11,
+      "photo_path": "green-tea.jpeg"
     },
     {
       "product_code": "SR1",
       "name": "Strawberries",
-      "price": 5.00
+      "price": 5.00,
+      "photo_path": "Strawberries.jpeg"
     },
     {
       "product_code": "CF1",
       "name": "Coffee",
-      "price": 11.23
+      "price": 11.23,
+      "photo_path": "Coffee.png"
     }
   ]
 }

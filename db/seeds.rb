@@ -13,7 +13,8 @@ products_json['products'].each do |product|
   attributes = {
     product_code: product['product_code'],
     name: product['name'],
-    price: product['price']
+    price: product['price'],
+    photo_path: product['photo_path']
   }
   Product.create!(attributes)
 end

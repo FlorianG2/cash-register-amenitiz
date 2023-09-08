@@ -1,0 +1,29 @@
+.product-container {
+  display: grid;
+  grid-template-columns:  1fr 1fr 1fr;
+  column-gap: 5px;
+}
+
+.product-image{
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+  img{
+    width: 100%;
+    height: auto;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid black;
+  }
+}
+
+.product-details{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 0 0 5px 5px;
+  border-top: none;
+
+  p{
+    margin: 0;
+  }
+}
