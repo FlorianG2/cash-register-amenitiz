@@ -21,15 +21,15 @@
             <% @total << product.total %>
             <div>
             <%= link_to edit_cart_product_path(product.id) do %>
-            <div class="orange-btn my-2">
+            <div class="blue-btn my-2">
               <p>Edit quantity</p>
             </div>
             <% end %>
-            <div>
-              <%= link_to destroy_path(product.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
-                <p>delete</p>
-              <% end %>
-            </div>
+            <%= link_to destroy_path(product.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+              <div class="orange-btn my-2">
+                  <p>delete</p>
+              </div>
+            <% end %>
             </div>
           </div>
         <% end %>
@@ -37,14 +37,16 @@
       <div class="d-flex justify-content-center">
         <h4>TOTAL: <%= @total.sum  %>€</h4>
       </div>
-      <div>
-      <%= link_to "Delete All",
-      destroy_all_path,
-      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-      %>
-      </div>
-      <div>
-      <%= link_to "Continue shopping", root_path %>
+      <div class="d-flex justify-content-between">
+        <div class="orange-btn p-2">
+        <%= link_to "Delete All",
+        destroy_all_path,
+        data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+        %>
+        </div>
+        <div class="green-btn p-2">
+        <%= link_to "Continue shopping", root_path %>
+        </div>
       </div>
     </div>
   </div>
