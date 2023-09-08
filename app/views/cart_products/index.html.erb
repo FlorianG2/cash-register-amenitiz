@@ -1,33 +1,51 @@
 <div class="container">
-  <div>
-    <h4>Cart</h4>
-  </div>
-  <% @cart_products.each do |product| %>
-    <% prod = Product.find(product.product_id) %>
-    <div>
-      <p class="product-card"><%= product.quantity %> - <%= prod.name %> for a total of : <%= product.total %>€</p>
-    </div>
-    <% @total << product.total %>
-    <div>
-      <%= link_to "Delete",
-      destroy_path(product.id),
+  <div class="row justify-content-center vh-100 align-items-center">
+    <div class="col-12 col-lg-6">
+      <div class="d-flex justify-content-center">
+        <h4>Shopping Cart</h4>
+      </div>
+        <div class="product-container">
+          <% @cart_products.each do |product| %>
+          <% prod = Product.find(product.product_id) %>
+          <div class="product-card">
+            <div class="product-image">
+              <%= image_tag prod.photo_path %>
+            </div>
+            <div class="product-details">
+              <p>Qty: <%= product.quantity %></p>
+              <p><%= prod.name %></p>
+            </div>
+            <div class="product-total">
+              <p>Subtotal = <%= product.total %>€</p>
+            </div>
+            <% @total << product.total %>
+            <div>
+            <%= link_to edit_cart_product_path(product.id) do %>
+            <div class="orange-btn my-2">
+              <p>Edit quantity</p>
+            </div>
+            <% end %>
+            <div>
+              <%= link_to destroy_path(product.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+                <p>delete</p>
+              <% end %>
+            </div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      <div class="d-flex justify-content-center">
+        <h4>TOTAL: <%= @total.sum  %>€</h4>
+      </div>
+      <div>
+      <%= link_to "Delete All",
+      destroy_all_path,
       data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-       %>
+      %>
+      </div>
+      <div>
+      <%= link_to "Continue shopping", root_path %>
+      </div>
     </div>
-    <div>
-      <%= link_to "Edit", edit_cart_product_path(product.id) %>
-    </div>
-  <% end %>
-  <div>
-    <p>total = <%= @total.sum  %>€</p>
-  </div>
-  <div>
-   <%= link_to "Delete",
-  destroy_all_path,
-  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-  %>
-  </div>
-  <div>
-  <%= link_to "Back to Products", root_path %>
   </div>
 </div>

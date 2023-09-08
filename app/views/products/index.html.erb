@@ -14,9 +14,11 @@
               <p><%= product.name %></p>
               <p><%= product.price %>€</p>
             </div>
+            <%= link_to new_cart_product_path(product.id) do %>
             <div class="orange-btn my-2">
-              <%= link_to 'Add quantity', new_cart_product_path(product.id) %>
+              <p>Add quantity</p>
             </div>
+            <% end %>
           </div>
           <% end %>
         </div>
