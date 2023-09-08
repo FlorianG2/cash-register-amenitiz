@@ -1,5 +1,7 @@
-<div class="product-container center">
-  <h4>Cart</h4>
+<div class="container">
+  <div>
+    <h4>Cart</h4>
+  </div>
   <% @cart_products.each do |product| %>
     <% prod = Product.find(product.product_id) %>
     <div>

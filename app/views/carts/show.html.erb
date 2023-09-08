@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row justify-content-center vh-100 align-items-center">
       <div class="col-12 col-lg-6 cash-register-container">
-        <h2 class="center">Cash Register</h2>
         <div class="d-flex flex-direction-column">
           <div class="product-container center">
             <h4>Products</h4>
@@ -13,9 +12,6 @@
               <%= link_to 'select the quantity', new_cart_product_path(product.id) %>
             </div>
             <% end %>
-          </div>
-            <%= link_to 'Go to Cart', cart_products_path %>
-          <div>
           </div>
         </div>
       </div>
