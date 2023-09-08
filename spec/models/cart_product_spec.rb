@@ -13,6 +13,12 @@ RSpec.describe CartProduct, type: :model do
       expect(cart_product).to_not be_valid
     end
 
+    it 'is not valid with a quantity not integer' do
+      product = Product.create!(product_code: 'GR1', name: 'Green Tea', price: 3.11)
+      cart_product = CartProduct.new(product_id: product.id, quantity: 'One', total: 3.11)
+      expect(cart_product).to_not be_valid
+    end
+
     it 'is not valid without a total' do
       product = Product.create!(product_code: 'GR1', name: 'Green Tea', price: 3.11)
       cart_product = CartProduct.new(product_id: product.id, quantity: 1, total: nil)

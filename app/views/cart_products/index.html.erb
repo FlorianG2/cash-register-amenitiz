@@ -6,13 +6,19 @@
       <p class="product-card"><%= product.quantity %> - <%= prod.name %> for a total of : <%= product.total %>€</p>
     </div>
     <% @total << product.total %>
+    <div>
+      <%= link_to "Delete",
+      destroy_path(product.id),
+      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+       %>
+    </div>
   <% end %>
   <div>
     <p>total = <%= @total.sum  %>€</p>
   </div>
   <div>
    <%= link_to "Delete",
-  destroy_path,
+  destroy_all_path,
   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
   %>
   </div>

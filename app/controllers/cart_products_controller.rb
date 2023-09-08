@@ -15,6 +15,12 @@ class CartProductsController < ApplicationController
     redirect_to cart_products_path, status: :see_other
   end
 
+  def destroy
+    @cart_product = CartProduct.find(params[:id])
+    @cart_product.destroy
+    redirect_to cart_products_path, status: :see_other
+  end
+
   def create
     values = params['cart_product'].values
     @product = Product.find(values[0])
