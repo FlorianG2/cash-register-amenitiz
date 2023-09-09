@@ -4,22 +4,13 @@ class CartProductsController < ApplicationController
     @total = []
   end
 
-  # def new
-  #   @id = params['format'].to_i
-  #   @product = Product.find(@id)
-  #   @cart_product = CartProduct.new(product_id: @id, quantity: 0, total: 0)
-  # end
-
   def create
     values = params['cart_product'].values
     @product = Product.find(values[0])
     total = total(@product, values[1].to_i)
     @cart_product = CartProduct.new(product_id: @product.id, quantity: values[1].to_i, total: total)
-    if @cart_product.save
-      redirect_to cart_products_path
-    else
-      redirect_to cart_products_path
-    end
+    @cart_product.save
+    redirect_to cart_products_path
   end
 
   def edit
@@ -50,10 +41,6 @@ class CartProductsController < ApplicationController
     @cart_product.destroy
     redirect_to cart_products_path, status: :see_other
   end
-
-  # def cart_product_params
-  #   params.require(:cart_product).permit(:quantity, :total, :product_id)
-  # end
 
   def total(product, quantity)
     case product.product_code
