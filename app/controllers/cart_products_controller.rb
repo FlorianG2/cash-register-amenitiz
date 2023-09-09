@@ -27,7 +27,8 @@ class CartProductsController < ApplicationController
   end
 
   def update
-    @product = Product.find(params[:id])
+    values = params['cart_product'].values
+    @product = Product.find(values[0])
     @cart_product = CartProduct.find(params[:id])
     if params[:cart_product][:quantity].to_i <= 0
       @cart_product.destroy
