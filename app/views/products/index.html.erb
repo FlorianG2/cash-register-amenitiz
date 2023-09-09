@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller="product">
   <div class="row justify-content-center vh-100 align-items-center">
       <div class="col-12 col-lg-6">
         <div class="d-flex justify-content-center">
@@ -14,11 +14,18 @@
               <p><%= product.name %></p>
               <p><%= product.price %>€</p>
             </div>
-            <%= link_to new_cart_product_path(product.id) do %>
-            <div class="blue-btn my-2">
+            <%#= link_to new_cart_product_path(product.id) do %>
+            <div class="blue-btn my-2" data-action="click->product#addQuantity">
               <p>Add quantity</p>
             </div>
-            <% end %>
+            <%# end %>
+            <div class="d-none">
+              <%= simple_form_for [@cart_product] do |f| %>
+              <%= f.hidden_field :id, value: product.id %>
+              <%= f.text_field :quantity %>
+              <%= f.submit %>
+              <% end %>
+            </div>
           </div>
           <% end %>
         </div>

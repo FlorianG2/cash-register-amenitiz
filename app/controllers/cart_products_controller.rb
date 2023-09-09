@@ -4,11 +4,11 @@ class CartProductsController < ApplicationController
     @total = []
   end
 
-  def new
-    @id = params['format'].to_i
-    @product = Product.find(@id)
-    @cart_product = CartProduct.new(product_id: @id, quantity: 0, total: 0)
-  end
+  # def new
+  #   @id = params['format'].to_i
+  #   @product = Product.find(@id)
+  #   @cart_product = CartProduct.new(product_id: @id, quantity: 0, total: 0)
+  # end
 
   def create
     values = params['cart_product'].values
