@@ -20,11 +20,9 @@
             </div>
             <% @total << product.total %>
             <div>
-            <%#= link_to edit_cart_product_path(product.id) do %>
             <div class="blue-btn my-2" data-action="click->product#addQuantity">
               <p>Edit quantity</p>
             </div>
-            <%# end %>
             <div class="d-none">
               <%= simple_form_for [product] do |f| %>
               <%= f.hidden_field :id, value: prod.id %>

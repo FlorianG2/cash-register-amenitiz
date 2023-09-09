@@ -14,11 +14,9 @@
               <p><%= product.name %></p>
               <p><%= product.price %>€</p>
             </div>
-            <%#= link_to new_cart_product_path(product.id) do %>
             <div class="blue-btn my-2" data-action="click->product#addQuantity">
               <p>Add quantity</p>
             </div>
-            <%# end %>
             <div class="d-none">
               <%= simple_form_for [@cart_product] do |f| %>
               <%= f.hidden_field :id, value: product.id %>

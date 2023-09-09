@@ -55,8 +55,8 @@ class CartProductsController < ApplicationController
 
   def free_green_tea(price, quantity)
     if quantity > 2
-      quantity_rounded = quantity / 2.0
-      price * quantity_rounded.round
+      quantity_divided = quantity / 2.0
+      price * quantity_divided.round
     elsif quantity == 1 || quantity == 2
       price
     else
