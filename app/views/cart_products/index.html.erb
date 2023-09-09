@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller="product">
   <div class="row justify-content-center vh-100 align-items-center">
     <div class="col-12 col-lg-6">
       <div class="d-flex justify-content-center">
@@ -20,11 +20,20 @@
             </div>
             <% @total << product.total %>
             <div>
-            <%= link_to edit_cart_product_path(product.id) do %>
-            <div class="blue-btn my-2">
+            <%#= link_to edit_cart_product_path(product.id) do %>
+            <div class="blue-btn my-2" data-action="click->product#addQuantity">
               <p>Edit quantity</p>
             </div>
-            <% end %>
+            <%# end %>
+            <div class="d-none">
+              <%= simple_form_for [product] do |f| %>
+              <%= f.hidden_field :id, value: prod.id %>
+              <div class="product-input">
+                <%= f.text_field :quantity %>
+              </div>
+              <%#= f.submit %>
+              <% end %>
+            </div>
             <%= link_to destroy_path(product.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
               <div class="orange-btn my-2">
                   <p>delete</p>

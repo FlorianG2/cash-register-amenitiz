@@ -18,7 +18,7 @@ class CartProductsController < ApplicationController
     if @cart_product.save
       redirect_to cart_products_path
     else
-      render :new, status: :unprocessable_entity
+      redirect_to cart_products_path
     end
   end
 
