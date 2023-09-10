@@ -41,8 +41,9 @@
 }
 
 .product-input{
+  display: flex;
   input{
-    width: 100%;
+    width: 50%;
     border-radius: 5px;
     border: 0.5px solid black;
   }
