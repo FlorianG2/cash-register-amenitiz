@@ -5,44 +5,42 @@
         <h4>Shopping Cart</h4>
       </div>
         <div class="product-container">
-          <% @cart_products.each do |product| %>
-          <% prod = Product.find(product.product_id) %>
+          <% @cart_products.each_with_index do |product, index| %>
           <div class="product-card">
             <div class="product-image">
-              <%= image_tag prod.photo_path %>
+              <%= image_tag @prods[index].photo_path %>
             </div>
             <div class="product-details">
               <p>Qty: <%= product.quantity %></p>
-              <p><%= prod.name %></p>
+              <p><%= @prods[index].name %></p>
             </div>
             <div class="product-total">
               <p>Subtotal = <%= product.total %>€</p>
             </div>
-            <% @total << product.total %>
             <div>
-            <div class="blue-btn my-2" data-action="click->product#addQuantity">
-              <p>Edit quantity</p>
-            </div>
-            <div class="d-none">
-              <%= simple_form_for [product] do |f| %>
-              <%= f.hidden_field :id, value: prod.id %>
-              <div class="product-input">
-                <%= f.text_field :quantity %>
-                <%= f.submit value:"Submit"%>
+              <div class="blue-btn my-2" data-action="click->product#addQuantity">
+                <p>Edit quantity</p>
               </div>
+              <div class="d-none">
+                <%= simple_form_for [product] do |f| %>
+                <%= f.hidden_field :id, value: @prods[index].id %>
+                <div class="product-input">
+                  <%= f.text_field :quantity %>
+                  <%= f.submit value:"Submit"%>
+                </div>
+                <% end %>
+              </div>
+              <%= link_to destroy_path(product.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+                <div class="orange-btn my-2">
+                    <p>delete</p>
+                </div>
               <% end %>
-            </div>
-            <%= link_to destroy_path(product.id), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
-              <div class="orange-btn my-2">
-                  <p>delete</p>
-              </div>
-            <% end %>
             </div>
           </div>
         <% end %>
         </div>
       <div class="d-flex justify-content-center">
-        <h4>TOTAL: <%= @total.sum  %>€</h4>
+        <h4>TOTAL: <%= @total  %>€</h4>
       </div>
       <div class="d-flex justify-content-between">
         <div class="orange-btn p-2">

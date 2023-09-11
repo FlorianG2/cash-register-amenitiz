@@ -1,7 +1,13 @@
 class CartProductsController < ApplicationController
   def index
     @cart_products = CartProduct.all
-    @total = []
+    @totals = []
+    @prods = []
+    @cart_products.each do |product|
+      @totals << product.total
+      @prods << Product.find(product.product_id)
+    end
+    @total = @totals.sum
   end
 
   def create
@@ -9,8 +15,7 @@ class CartProductsController < ApplicationController
     @product = Product.find(values[0])
     total = total(@product, values[1].to_i)
     @cart_product = CartProduct.new(product_id: @product.id, quantity: values[1].to_i, total: total)
-    @cart_product.save
-    redirect_to cart_products_path
+    redirect_to cart_products_path if @cart_product.save!
   end
 
   def edit
@@ -22,11 +27,11 @@ class CartProductsController < ApplicationController
     @product = Product.find(values[0])
     @cart_product = CartProduct.find(params[:id])
     if params[:cart_product][:quantity].to_i <= 0
-      @cart_product.destroy
+      @cart_product.destroy!
     else
       total = total(@product, params[:cart_product][:quantity].to_i)
       @cart_product.update(quantity: params[:cart_product][:quantity].to_i, total: total)
-      @cart_product.save
+      @cart_product.save!
     end
     redirect_to cart_products_path
   end
