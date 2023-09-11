@@ -57,7 +57,7 @@ class CartProductsController < ApplicationController
     if quantity > 2
       quantity_divided = quantity / 2.0
       price * quantity_divided.round
-    elsif quantity == 1 || quantity == 2
+    elsif [1, 2].include?(quantity)
       price
     else
       0
